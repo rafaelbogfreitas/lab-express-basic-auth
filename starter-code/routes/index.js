@@ -6,4 +6,7 @@ router.get('/', (req, res, next) => {
   res.render('index');
 });
 
+
+// Sign-up routes 
+
 module.exports = router;
