@@ -53,16 +53,16 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 app.locals.title = 'Express - Generated with IronGenerator';
 
 
-app.use(session({
-  secret: 'é nóis',
-  cookie: {
-    maxAge: 60000
-  },
-  store:new MongoStore({
-    mongooseConnections: mongoose.connection,
-    ttl: 24 * 60 * 60 //one day
-  })
-}))
+// app.use(session({
+//   secret: 'é nóis',
+//   cookie: {
+//     maxAge: 60000
+//   },
+//   store:new MongoStore({
+//     mongooseConnections: mongoose.connection,
+//     ttl: 24 * 60 * 60 //one day
+//   })
+// }))
 
 
 const index = require('./routes/index');

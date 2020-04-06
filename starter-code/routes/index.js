@@ -49,6 +49,26 @@ router.post('/sign-up', (req, res, next) => {
 
 });
 
-// Login 
+// Login  GET 
+router.get('/login', (req, res, next) => {
+  res.render('login');
+});
 
+router.post('/login', (req, res, next) => {
+  
+  let name  = req.body.username;
+  let userPassword  = req.body.password;
+
+  User.find({username: name})
+    .then( user => {
+      if(user.length == 0){
+        res.render('login', { message: "User does not exist"});
+      } else if (!bcrypt.compareSync(userPassword, user[0].password)){
+        res.render('login', { message: "Wrong password!"});
+      } else {
+        res.render('main', { username: name });
+      }
+    })
+    .catch( error => console.log(error));
+})
 module.exports = router;
