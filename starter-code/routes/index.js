@@ -66,9 +66,47 @@ router.post('/login', (req, res, next) => {
       } else if (!bcrypt.compareSync(userPassword, user[0].password)){
         res.render('login', { message: "Wrong password!"});
       } else {
+        req.session.currentUser = user;
         res.render('main', { username: name });
       }
     })
     .catch( error => console.log(error));
 })
+
+
+router.use((req, res, next) => {
+  if (req.session.currentUser) { 
+    next(); 
+  } else {                          
+    res.redirect("/login");         
+  }                                 
+});
+
+router.get('/main', (req, res) => {
+  res.render('main')
+})
+
+router.get('/private', (req, res) => {
+  res.render('private');
+})
+
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    // cannot access session here
+    res.redirect("/login");
+  });
+})
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = router;
+
